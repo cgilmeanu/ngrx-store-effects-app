@@ -1,19 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { throwError as observableThrowError, Observable } from "rxjs";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { catchError } from "rxjs/operators";
 
-import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
-
-import { Topping } from '../models/topping.model';
+import { Topping } from "../models/topping.model";
 
 @Injectable()
 export class ToppingsService {
   constructor(private http: HttpClient) {}
 
   getToppings(): Observable<Topping[]> {
-    return this.http
-      .get<Topping[]>(`/api/toppings`)
-      .pipe(catchError((error: any) => Observable.throw(error.json())));
+    return this.http.get<Topping[]>(`/api/toppings`);
   }
 }

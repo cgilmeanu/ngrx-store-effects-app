@@ -108,16 +108,20 @@
           "name": "onion"
         },
         {
-          "id": 11,
-          "name": "sweetcorn"
-        },
-        {
           "id": 9,
           "name": "pepper"
         },
         {
           "id": 5,
           "name": "mozzarella"
+        },
+        {
+          "id": 11,
+          "name": "sweetcorn"
+        },
+        {
+          "id": 12,
+          "name": "tomato"
         }
       ],
       "id": 2
