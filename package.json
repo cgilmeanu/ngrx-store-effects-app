@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p",
-    "build:dev":
-      "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
+    "build:dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "build:production": "npm run clean && npm run build",
     "clean": "rimraf build",
     "start": "npm run build:dev",
@@ -42,13 +41,15 @@
     "progress-bar-webpack-plugin": "1.9.3",
     "raw-loader": "0.5.1",
     "rimraf": "2.6.2",
-    "sass-loader": "6.0.6",
+    "sass-loader": "7.1.0",
     "typescript": "2.6.1",
-    "webpack": "3.6.0",
-    "webpack-dev-server": "2.8.2"
+    "webpack": "4.35.3",
+    "webpack-cli": "3.3.5",
+    "webpack-dev-server": "3.7.2"
   },
   "dependencies": {
     "@angular/animations": "5.0.3",
+    "@angular/cli": "^8.1.1",
     "@angular/common": "5.0.3",
     "@angular/core": "5.0.3",
     "@angular/forms": "5.0.3",
