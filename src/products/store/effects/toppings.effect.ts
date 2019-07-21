@@ -5,7 +5,7 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 
 import * as toppingsActions from '../actions/toppings.action';
 import * as fromServices from '../../services/toppings.service';
-import { of } from 'zen-observable';
+import { of } from 'rxjs';
 
 @Injectable()
 export class ToppingsEffects {
