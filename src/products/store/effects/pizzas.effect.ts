@@ -24,4 +24,31 @@ export class PizzasEffects {
       );
     })
   );
+
+  @Effect()
+  createPizza$ = this.actions$.pipe(
+    ofType(fromPizzas.CREATE_PIZZA),
+    map((action: fromPizzas.CreatePizza) => action.payload),
+    // tslint:disable-next-line: rxjs-no-unsafe-switchmap
+    switchMap(pizza => {
+      return this.pizzaService.createPizza(pizza).pipe(
+        // tslint:disable-next-line: no-shadowed-variable
+        map(pizza => new fromPizzas.CreatePizzaSuccess(pizza)),
+        catchError(error => of(new fromPizzas.CreatePizzaFail(error)))
+      );
+    })
+  );
+
+  @Effect()
+  updatePizza$ = this.actions$.pipe(
+    ofType(fromPizzas.UPDATE_PIZZA),
+    map((action: fromPizzas.UpdatePizza) => action.payload),
+    // tslint:disable-next-line: rxjs-no-unsafe-switchmap
+    switchMap(pizza => {
+      return this.pizzaService.updatePizza(pizza).pipe(
+        map(savedPizza => new fromPizzas.UpdatePizzaSuccess(savedPizza)),
+        catchError(error => of(new fromPizzas.UpdatePizzaFail(error)))
+      );
+    })
+  );
 }
