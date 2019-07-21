@@ -51,4 +51,17 @@ export class PizzasEffects {
       );
     })
   );
+
+  @Effect()
+  removePizza$ = this.actions$.pipe(
+    ofType(fromPizzas.REMOVE_PIZZA),
+    map((action: fromPizzas.RemovePizza) => action.payload),
+    // tslint:disable-next-line: rxjs-no-unsafe-switchmap
+    switchMap(pizza => {
+      return this.pizzaService.removePizza(pizza).pipe(
+        map(() => new fromPizzas.RemovePizzaSuccess(pizza)),
+        catchError(error => of(new fromPizzas.RemovePizzaFail(error)))
+      );
+    })
+  );
 }

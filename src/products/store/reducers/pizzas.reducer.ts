@@ -1,5 +1,6 @@
 import * as fromPizzas from '../actions/pizzas.action';
 import { Pizza } from '../../models/pizza.model';
+import { stat } from 'fs';
 
 export interface PizzaState {
   entities: { [id: number]: Pizza };
@@ -61,6 +62,15 @@ export function reducer(
         ...state.entities,
         [pizza.id]: pizza
       };
+      return {
+        ...state,
+        entities
+      };
+    }
+
+    case fromPizzas.REMOVE_PIZZA_SUCCESS: {
+      const pizza = action.payload;
+      const { [pizza.id]: removedPizza, ...entities } = state.entities;
       return {
         ...state,
         entities
