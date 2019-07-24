@@ -23,7 +23,8 @@ export function reducer(
     case fromToppings.LOAD_TOPPINGS: {
       return {
         ...state,
-        loading: true
+        loading: true,
+        loaded: false
       };
     }
     case fromToppings.LOAD_TOPPINGS_SUCCESS: {
@@ -43,8 +44,8 @@ export function reducer(
       return {
         ...state,
         entities,
-        loaded: false,
-        loading: true
+        loaded: true,
+        loading: false
       };
     }
 

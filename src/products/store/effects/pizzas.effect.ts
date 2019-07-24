@@ -7,6 +7,8 @@ import * as fromPizzas from '../actions/pizzas.action';
 import * as services from '../../services';
 import { of } from 'rxjs';
 
+import * as fromRoot from '../../../app/store';
+
 @Injectable()
 export class PizzasEffects {
   constructor(
@@ -29,14 +31,24 @@ export class PizzasEffects {
   createPizza$ = this.actions$.pipe(
     ofType(fromPizzas.CREATE_PIZZA),
     map((action: fromPizzas.CreatePizza) => action.payload),
-    // tslint:disable-next-line: rxjs-no-unsafe-switchmap
     switchMap(pizza => {
       return this.pizzaService.createPizza(pizza).pipe(
-        // tslint:disable-next-line: no-shadowed-variable
         map(pizza => new fromPizzas.CreatePizzaSuccess(pizza)),
         catchError(error => of(new fromPizzas.CreatePizzaFail(error)))
       );
     })
+  );
+
+  @Effect()
+  createPizzaSuccess$ = this.actions$.pipe(
+    ofType(fromPizzas.CREATE_PIZZA_SUCCESS),
+    map((action: fromPizzas.CreatePizzaSuccess) => action.payload),
+    map(
+      pizza =>
+        new fromRoot.Go({
+          path: ['/products', pizza.id]
+        })
+    )
   );
 
   @Effect()
@@ -56,12 +68,21 @@ export class PizzasEffects {
   removePizza$ = this.actions$.pipe(
     ofType(fromPizzas.REMOVE_PIZZA),
     map((action: fromPizzas.RemovePizza) => action.payload),
-    // tslint:disable-next-line: rxjs-no-unsafe-switchmap
     switchMap(pizza => {
       return this.pizzaService.removePizza(pizza).pipe(
         map(() => new fromPizzas.RemovePizzaSuccess(pizza)),
         catchError(error => of(new fromPizzas.RemovePizzaFail(error)))
       );
+    })
+  );
+
+  @Effect()
+  handlePizzaSuccess$ = this.actions$.pipe(
+    ofType(fromPizzas.UPDATE_PIZZA_SUCCESS, fromPizzas.REMOVE_PIZZA_SUCCESS),
+    map(pizza => {
+      return new fromRoot.Go({
+        path: ['/products']
+      });
     })
   );
 }
