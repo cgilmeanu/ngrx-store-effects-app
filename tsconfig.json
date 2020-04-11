@@ -5,11 +5,12 @@
   },
   "compilerOptions": {
     "baseUrl": ".",
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "lib": ["dom", "es2016"],
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitHelpers": true,
     "noImplicitAny": true,
@@ -17,6 +18,6 @@
     "rootDir": ".",
     "sourceMap": true,
     "skipLibCheck": true,
-    "target": "es5"
+    "target": "es2015"
   }
 }
